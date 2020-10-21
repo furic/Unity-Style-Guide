@@ -1,5 +1,7 @@
 # [Coding Guideline for Unity C#](https://www.richardfu.net/coding-guideline-for-unity-c/)
 
+![](https://i0.wp.com/www.richardfu.net/wp-content/uploads/2020/10/Coding-Guideline-for-Unity-C.jpg)
+
 As a programmer, it is very important to follow a coding standard and make sure others can read and easily understand his code. While there’s not majority guideline of coding standard in Unity and C#, [you can/should code whatever you like](http://wiki.c2.com/?UncleBobOnCodingStandards), but in this article I’m going to show you our style and format guideline within the company. We have tried to adopt different styles throughout these years and came out the one we feel most comfortable.
 
 Our **3 golden rules** to forms our style standard:  
