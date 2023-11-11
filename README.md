@@ -2,32 +2,32 @@
 
 ![](https://i0.wp.com/www.richardfu.net/wp-content/uploads/2020/10/Coding-Guideline-for-Unity-C.jpg)
 
-As a programmer, it is very important to follow a coding standard and make sure others can read and easily understand his code. While there’s not majority guideline of coding standard in Unity and C#, [you can/should code whatever you like](http://wiki.c2.com/?UncleBobOnCodingStandards), but in this article I’m going to show you our style and format guideline within the company. We have tried to adopt different styles throughout these years and came out the one we feel most comfortable.
+As a programmer, following a coding standard is crucial to ensure code readability and understandability. While Unity and C# lack a definitive coding standard, you have the [freedom to code as you prefer](http://wiki.c2.com/?UncleBobOnCodingStandards). In this article, we present our internal style and formatting guidelines developed over the years to create a comfortable coding environment.
 
-Our **3 golden rules** to forms our style standard:  
-1. Follow Unity’s style in [Scripting Reference](https://docs.unity3d.com/ScriptReference/)  
-2. The rest follow Microsoft’s [C# Coding Conventions](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/inside-a-program/coding-conventions)  
-3. Minor tweak where we believe that can make the code clearer
+Our **3 golden rules** shape our style standard:
+1. Adhere to Unity's style as described in the [Scripting Reference](https://docs.unity3d.com/ScriptReference/).
+2. Follow Microsoft's [C# Coding Conventions](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/inside-a-program/coding-conventions) for the rest.
+3. Implement minor tweaks to enhance code clarity.
 
 #### Folder Structure
 
-All similar files should be grouped in the root folders:
+Group similar files in root folders:
 
 ```
 Assets
   Animations       Animation clips
-  Editor           Editor specified scripts, prefabs, etc
-  Fonts            Fonts used in game
+  Editor           Editor-specified scripts, prefabs, etc
+  Fonts            Fonts used in the game
   Materials        Texture materials
   Prefabs          In-game prefabs
   Resources        Unity resources assets
   Scenes           Scenes
-  Scripts          Code scripts, grouped in sub-folders
+  Scripts          Code scripts, organized in sub-folders
   Sounds           Musics, sounds
-  SweatyChair      Company folder that share across projects
-    (ModuleName1)  Module name, e.g. DailyLogin
-      (Scripts)    Scripts within the module
-      (Prefabs)    Prefabs within the module
+  <CompanName>     Company folder shared across projects
+    <ModuleName>   Module name, e.g. DailyLogin
+      Scripts      Scripts within the module
+      Prefabs      Prefabs within the module
       ...          Other assets grouped in folders
     ...            Other modules
   Textures         Image textures
@@ -35,108 +35,101 @@ Assets
     Icons          App icons
 ```
 
-> We have a `SweatyChair` folder, which containes a number of well-structure modules and sync across projects using Git [submodules](https://www.git-scm.com/book/en/v2/Git-Tools-Submodules). We we are always reuse the commond code and able to perform rapid prototyping.
+> We maintain a `<CompanyName>` folder containing well-structured modules that sync across projects using Git [submodules](https://www.git-scm.com/book/en/v2/Git-Tools-Submodules). This approach allows us to reuse common code and facilitate rapid prototyping.
 
 #### File Naming
 
-File naming is simple, always use Pascal Case except for images:
+File naming is straightforward, always use PascalCase except for images:
 
--   Folders – PascalCase  
-    `FolderName`/
--   Images – hyphen-  
-    `image-name-64x64.jpg`
--   The rest – PascalCase  
-    `ScriptName.cs`, `PrefabName.prefab`, `SceneName.unity`
+-   Folders use PascalCase: `FolderName`/
+-   Images use hyphen naming: `image-name-64x64.jpg`
+-   The rest uses PascalCase: `ScriptName.cs`, `PrefabName.prefab`, `SceneName.unity`
 
-> The reason images use hyphen naming is that most images are also used in our website / press-kit. Hyphen naming is the majority naming convention for web image and it’s also [search engine friendly](https://www.natalleblas.com/optimise-images-for-seo/). Using the same name can save us time renaming and easily find the same image switching between Unity and web.
+> Images are often given hyphenated names because they are commonly used in both our website and press kit. Hyphenated naming is the prevailing convention for web images and is also favorable for [search engine optimization](https://www.natalleblas.com/optimise-images-for-seo/). Employing consistent names allows us to save time by avoiding the need for renaming and makes it effortless to locate the same image when transitioning between Unity and the web.
 
 #### Scripts Naming
 
-While each script has its unique purpose and use cases, we follow these naming rules and so we can still roughly know what the script is for by simply reading the filenames:
+Scripts follow specific naming rules to convey their purpose:
 
--   `XxxPanel`, `XxxSlot`, `XxxButton`, etc for UI  
+-   `XxxPanel`, `XxxSlot`, `XxxButton`, etc for UI:
     `MenuPanel`, `AchievementSlot`, `CoinShopButton`
--   `XxxManager`, for master scripts that control specific workflow (only ONE instance in the scene)  
+-   `XxxManager`, for master scripts controlling specific workflows (only ONE instance in the scene): 
     `DailyMissionManager`, `AchievementManager`
--   `XxxController`, for scripts controlling a game object (one or many in the scene)  
+-   `XxxController`, for scripts controlling a game object (one or many in the scene):
     `PlayerController`, `BossController`, `BackgroundControler`
--   `XxxDatabase`, for a database (e.g CSV) which contains a list of data rows  
+-   `XxxDatabase`, for a database (e.g. CSV) containing data rows:
     `WeaponDatabase`, `CardDatabase`
--   `XxxData`, for data row in a CSV database  
+-   `XxxData`, for data rows in a CSV database:
     `WeaponData`, `CardData`
--   `XxxItem`, for in-game item instance  
+-   `XxxItem`, for in-game item instances:
     `CardItem`, `CharacterItem`
--   `XxxGenerator`, for scripts instantiate GameObjects  
+-   `XxxGenerator`, for scripts instantiating GameObjects:
     `ObjectGenerator`, `LandGenerator`
--   `XxxSettings`, for settings scripts inherent Unity’s [`ScriptableObject`](https://docs.unity3d.com/Manual/class-ScriptableObject.html) class  
+-   `XxxSettings`, for settings scripts inherent to Unity's [`ScriptableObject`](https://docs.unity3d.com/Manual/class-ScriptableObject.html) class:
     `AchievementSettings`, `DailyLoginSettings`
--   `XxxEditor`, for editor-only scripts inherent Unity’s `[Editor](https://docs.unity3d.com/ScriptReference/Editor.html)` class  
+-   `XxxEditor`, for editor-only scripts inherent to Unity’s `[Editor](https://docs.unity3d.com/ScriptReference/Editor.html)` class:
     `TutorialTaskEditor`, `AchievementSettingsEditor`
 
-> Difference between `Manager` and `Controller` is `Manager` should be singleton or static, and it controls a specific game logic that may involve multiple objects and assets, while Controller controls an object and may have multiple instances. For example, there are multiple EnemyController in the scene and each control one enemy. We will discuss more on this in a singleton article.
+> The distinction between a `Manager` and a `Controller` lies in the fact that a Manager should typically be implemented as a singleton or static entity, overseeing specific game logic that may involve multiple objects and assets. In contrast, a `Controller` is responsible for governing an individual object and can have multiple instances. For instance, within a scene, there may be several `EnemyController`s, each managing a distinct enemy. We will delve deeper into this topic in an upcoming article dedicated to singletons.
 
-> Difference between `Data` and `Item` is that `Item` is an instance in-game, and in most cases `Item` contains a `Data`. For example `CardData` has all preset attributes of a card, while `CardItem` has its `CardData` plus attributes that vary for different players, such as card level. We will talk about more this in another data structure article.
+> The differentiation between `Data` and `Item` is that an `Item` represents an in-game instance, and in most cases, it encapsulates a `Data` component. For example, `CardData` encompasses all the preset attributes of a card, while `CardItem` incorporates the `CardData` and additional attributes that vary for different players, such as the card's level. We will explore this concept further in another article focused on data structures.
 
 #### Variable Naming
 
-Similar to file naming, variable naming allow us to know what the variable is for without reading though all code:
+Variable naming uses camelCase to convey their purpose without needing to read through all the code:
 
--   Use camcelCase, always as of a noun or in a form of (is/has)Abjective  
-    `hasRewarded`, `currentPosition`, `isInitialized`
--   Prefix with an underscore for private and protected variables  
+-   Prefix with an underscore for private and protected variables:
     `_itemCount`, `_controller`, `_titleText`
--   All capital letters for const  
+-   All capital letters for constants:
     `SHOW_SUB_MENU_LEVEL`, `MAX_HP_COUNT`, `BASE_DAMAGE`
--   All capital letters and PREFS_XXXX for PlayerPref keys  
+-   All capital letters as PREFS_XXXX for PlayerPref keys:
     `private const string PREFS_LAST_FREE_DRAW = “LastFreeDraw”;`  
     `PlayerPrefs.GetInt(PREFS_LAST_FREE_DRAW)`
--   Use `xxxGO` for scene GameObject variables  
+-   Use `xxxGO` for scene GameObject variables:
     `optionButtonGO`, `backgroundMaskGO`
--   Use `xxxPrefab` for scene GameObject variables  
+-   Use `xxxPrefab` for scene GameObject variables:
     `weaponSlotPrefab`, `explosionPrefab`
--   Use `xxxTF` for Transform variables  
+-   Use `xxxTF` for Transform variables:
     `weaponTF`, `armTF`
--   Use `xxxComponent` for all other components, abbreviate if needed  
+-   Use `xxx<Component>` for all other components, abbreviated if necessary:
     `eyesSpriteRenderer` / `eyesSR`, `runAnimation` / `runAnim`, `attckAnimationClip` / `attackAC`, `victoryAudioClip` / `victoryAC`
--   Use xxxxs for arrays  
+-   Use xxxxs for arrays:
     `slotPrefabs = new Prefabs[0]`  
     `achievementIds = new int [0]`
--   Use xxxxList for List and xxxxDict for Dictionary  
+-   Use xxxxList for `List` and xxxxDict for `Dictionary`:
     `weaponTransformList = new List()`  
     `achievementProgressDict = new Dictionary()`
--   Use nounVerbed for callback event  
+-   Use nounVerbed for callback event:
     `public static event UnityAction gameStarted`  
     `public static UnityAction characterDied`
 
-> Unity use prefix `m_` for private/protected variables, and `s_` for static variables (see their [BitBucket](https://bitbucket.org/Unity-Technologies/assetbundlegraphtool/src/0e498d12964d7cd1b86728289ff6f8321d127db4/Runtime/AssetBundleBuildMap.cs)). We found that this makes the code very hard to read, so we leave one underscore for private/protected variables and keep it the same for both static and non-static variables.
+> In Unity, the convention for naming private/protected variables is to use the prefix `"m_"` and for static variables, `"s_"` (as indicated in their [BitBucket](https://bitbucket.org/Unity-Technologies/assetbundlegraphtool/src/0e498d12964d7cd1b86728289ff6f8321d127db4/Runtime/AssetBundleBuildMap.cs)). However, we've observed that this practice can make the code less readable. As a result, we have adopted a simplified approach by using a single underscore "_" for both private/protected and static variables to enhance code clarity.
 
 > Callback event follow Unity’s event naming convention, e.g. `[SceneManager.activeSceneChanged](https://docs.unity3d.com/ScriptReference/SceneManagement.SceneManager-activeSceneChanged.html)`.
 
 #### Functions Naming
 
--   Use PascalCase, start with a verb and followed by a noun if needed  
+-   Functions use PascalCase, starting with a verb and followed by a noun if necessary:
     `Reward()`, `StartGame()`, `MoveToCenter()`
--   Use `OnXxxxClick`, for UI button clicks  
+-   Callback functions for UI button clicks are named as `OnXxxClick`:
     `OnStartClick()`, `OnCancelClick()`
--   Use `OnNounVerbed`, for callbacks  
+-   Callback functions use `OnNounVerbed`:
     `OnChestOpened()`, `OnBuyWeaponConfirmed()`
 
 #### Member Properties
 
-If a function has no input, use member property (aka get/set property) instead, in PacelCase as well:  
-`bool IsRewarded() { }`  
-to  
+If a function has no input, use a member property (get/set property) in PascalCase:
 `bool IsRewarded {get { return …} }`  
-Or even in a shortened form as  
+Or
 `bool IsRewarded => ...;`
 
-Also, use member properties where a variable can only set internally but can be accessed publicly:  
+Member properties are used where a variable can only be set internally but accessed publicly:
 `public int Id { get; private set; }`  
 `public Sprite IconSprite { get; private set; }`
 
 #### Variables / Functions orders
 
-Having a consistent order can greatly save our time on looking for a specific variable or function:
+Consistent order saves time searching for specific variables or functions. Here's the preferred order:
 
 ```
 MyCalss : Monobehavior
@@ -187,7 +180,7 @@ MyCalss : Monobehavior
 }
 ```
 
-You can also group valuables and functions in a region in large scripts (but not too large enough to be split into another script):
+You can also consider grouping variables and functions within a region in larger scripts, but ensure that the script remains manageable and doesn't become overly extensive, to the point where it should be split into multiple scripts. This can help improve code organization and readability.
 
 ```
 #region Timer
@@ -204,11 +197,11 @@ You can also group valuables and functions in a region in large scripts (but not
 
 #### Code Formatting
 
-We use **K&R** style which is already preset in Mac Visual Studio:
+We use **K&R** style, which is preset in Mac Visual Studio:
 
 ![](https://i1.wp.com/www.richardfu.net/wp-content/uploads/2020/10/KR-style-in-Mac-Visual-Studio.jpg?resize=1022%2C691&ssl=1)
 
-While there’s not K&R in Windows (Why, Microsoft?), just a little bit effort to manually set few ticks:
+In Windows, you can manually configure it to match the K&R style:
 
 ![](https://i2.wp.com/www.richardfu.net/wp-content/uploads/2020/10/Windows-coding-format-1.jpg?resize=1024%2C173&ssl=1)
 
@@ -220,7 +213,7 @@ While there’s not K&R in Windows (Why, Microsoft?), just a little bit effort t
 
 #### Brackets and Newlines
 
-For single-line conditional statements we do not need any brackets:
+For single-line conditional statements, no brackets are needed:
 
 ```
 if (1 == 1)
@@ -232,7 +225,7 @@ if (1 == 1) {
 }
 ```
 
-> Many developers, includes Unity, favourite putting newlines after open bracket ( `{` ). It may make the code looks more tidy and symmetric, but also creates a lot of unuseful lines and making script scrolling much more often and longer. Every bit count. If you spend 1 more second on scrolling a day, you probably wasted 5 minutes of valuable time a year.
+> Numerous developers, Unity included, have a preference for inserting newlines after an open bracket "{." While this practice can lend a sense of tidiness and symmetry to the code, it can also generate numerous unnecessary lines, leading to more frequent and longer script scrolling. Every bit of efficiency matters, as even spending an extra second on scrolling each day can add up to wasting five minutes of valuable time over the course of a year.
 
 #### Comments
 
@@ -245,4 +238,4 @@ Temporarily commenting out code should not include a space after the slashes, to
 
 ----------
 
-That’s all. This may go bigger when you adopt more latest .Net syntax. There are also a few other good [guidelines](https://github.com/justinwasilenko/Unity-Style-Guide) if you want to read [more](http://www.arreverie.com/blogs/unity3d-best-practices-folder-structure-source-control/). Free feel to follow this style if you think it’s reasonable and helpful, so we may create a better game dev world where code is clean and please to read. 😀
+That concludes our coding guideline. It's worth noting that these guidelines may expand as you incorporate more recent .Net syntax. If you're interested in further best practices, there are additional valuable [guidelines](https://github.com/justinwasilenko/Unity-Style-Guide) to [explore](http://www.arreverie.com/blogs/unity3d-best-practices-folder-structure-source-control/). Feel free to embrace this coding style, as it promotes clean and readable code, contributing to the enhancement of the game development community. 😊
